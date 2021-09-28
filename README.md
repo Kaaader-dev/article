@@ -64,3 +64,13 @@ En général on résume en disant que le modèle gère la base de données, la v
 - la vue est soit un simple fichier avec du code HTML, soit un fichier utilisant le système de template Blade de Laravel.
 
 Laravel propose ce patron mais ne l’impose pas. Nous verrons d’ailleurs qu’il est parfois judicieux de s’en éloigner parce qu’il y a des tas de chose qu’on n’arrive pas à caser dans cette organisation. Par exemple si je dois envoyer des emails où vais-je placer mon code ? En général ce qui se produit est l’inflation des contrôleurs auxquels on demande des choses pour lesquelles ils ne sont pas faits.
+
+### La Programmation Orientée Object (POO)
+
+Laravel est fondamentalement orienté objet. La POO est un design pattern qui s’éloigne radicalement de la programmation procédurale. Avec la POO tout le code est placé dans des classes qui découlent d’interfaces qui établissent des contrats de fonctionnement. Avec la POO on manipule des objets.
+
+Avec la POO, la responsabilité du fonctionnement est répartie dans des classes, alors que dans l’approche procédurale tout est mélangé. Le fait de répartir la responsabilité évite la duplication du code qui est le lot presque forcé de la programmation procédurale. Laravel pousse au maximum cette répartition en utilisant l’injection de dépendance.
+
+L’utilisation de classes bien identifiées, dont chacune a un rôle précis, pilotées par des interfaces claires, dopées par l’injection de dépendances : tout cela crée un code élégant, efficace, lisible, facile à maintenir et à tester. C’est ce que Laravel propose. Alors vous pouvez évidemment greffer là dessus votre code approximatif, mais vous pouvez aussi vous inspirer des sources du framework pour améliorer votre style de programmation.
+
+L’injection de dépendance est destinée à éviter de rendre les classes dépendantes et de privilégier une liaison dynamique plutôt que statique. Le résultat est un code plus lisible, plus facile à maintenir et à tester. Nous verrons ce mécanisme à l’œuvre dans Laravel.
