@@ -74,3 +74,10 @@ Avec la POO, la responsabilité du fonctionnement est répartie dans des classes
 L’utilisation de classes bien identifiées, dont chacune a un rôle précis, pilotées par des interfaces claires, dopées par l’injection de dépendances : tout cela crée un code élégant, efficace, lisible, facile à maintenir et à tester. C’est ce que Laravel propose. Alors vous pouvez évidemment greffer là dessus votre code approximatif, mais vous pouvez aussi vous inspirer des sources du framework pour améliorer votre style de programmation.
 
 L’injection de dépendance est destinée à éviter de rendre les classes dépendantes et de privilégier une liaison dynamique plutôt que statique. Le résultat est un code plus lisible, plus facile à maintenir et à tester. Nous verrons ce mécanisme à l’œuvre dans Laravel.
+
+### Cours
+
+- I [L'environnement](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/01-Environnement.md)
+- II [L'installation](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/02-Installation.md)
+- III [Le routage](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/03-Routage.md)
+

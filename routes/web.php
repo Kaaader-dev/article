@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +15,42 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**
+ * Une route GET classique qui retourne un contenu
+ */
+Route::get('salut', function() {
+    return 'Salut, je suis une page de test';
+});
+
+/**
+ * Une route avec un paramètre nécessaire
+ */
+Route::get('salut/{name}', function($name) {
+    return 'Salut ' . ucfirst($name) . ', je suis une page de test avec un paramètre !';
+});
+
+/**
+ * Une route avec un paramètre optionnel
+ */
+Route::get('optionnel/{name?}', function($name = null) {
+    if( $name === null ) {
+        return 'Salut, je ne contiens aucun paramètre';
+    }
+
+    return 'Salut, mon paramètre est le suivant : ' . $name;
+});
+
+/**
+ * Une route avec un paramètre recquis qui doit obligatoirement être un nombre
+ */
+Route::get('number/{n}', function($n) {
+    return $n;
+})->where('n', '[0-9]+');
+
+/**
+ * Route avec un paramètre recquis qui ne doit contenir que du texte
+ */
+Route::get('string/{string}', function($string) {
+    return $string;
+})->where('string', '[a-z]+');
