@@ -47,3 +47,102 @@ C’est ce fichier comportant du code Html qui génère le texte d’accueil que
 
 ### Utilisons les routes
 
+Voici quelques exemples de route
+
+```injectablephp
+**
+ * Une route GET classique qui retourne un contenu
+ */
+Route::get('salut', function() {
+    return 'Salut, je suis une page de test';
+});
+
+/**
+ * Une route avec un paramètre nécessaire
+ */
+Route::get('salut/{name}', function($name) {
+    return 'Salut ' . ucfirst($name) . ', je suis une page de test avec un paramètre !';
+});
+
+/**
+ * Une route avec un paramètre optionnel
+ */
+Route::get('optionnel/{name?}', function($name = null) {
+    if( $name === null ) {
+        return 'Salut, je ne contiens aucun paramètre';
+    }
+
+    return 'Salut, mon paramètre est le suivant : ' . $name;
+});
+
+/**
+ * Une route avec un paramètre recquis qui doit obligatoirement être un nombre
+ */
+Route::get('number/{n}', function($n) {
+    return $n;
+})->where('n', '[0-9]+');
+
+/**
+ * Route avec un paramètre recquis qui ne doit contenir que du texte
+ */
+Route::get('string/{string}', function($string) {
+    return $string;
+})->where('string', '[a-z]+');
+
+/**
+ * Exemple d'une route nommée, quon pourra appeler grâce à la fonction
+ * route('home')
+ */
+Route::get('home', function() {
+    return 'Je suis la page d\'accueil';
+})->name('home');
+```
+
+### Ordre des routes
+
+Il est important de correcter ordonner vos routes par ordre de priorier, que se passera-t-il si jamais vous définissez les routes suivantes ?
+
+```injectablephp
+Route::get('{n}', function($n) {
+    return 'Je suis la page ' . $n;
+});
+
+Route::get('test', function() {
+    return 'Je suis une page de test';
+});
+```
+
+Je vous tester et en tirer une conclusion ;)
+
+### Le groupage des routes
+
+Le groupage des routes vous permet d'avoir le même préfixe d'url pour différentes sections, et ainsi y appliquer un middleware global, une architecture de nom, etc.
+
+Voici une exemple :
+
+```injectablephp
+Route::prefix('users')->name('users.')->group(function() {
+   Route::get('/', function() {
+       return 'Accueil espace membre';
+   })->name('index');
+
+   Route::get('/{name}', function($name) {
+       return 'Bonjour je suis ' . ucwords(str_replace('-', ' ', $name));
+   })->name('show');
+});
+```
+
+Ce groupe ayant pour préfixe "users" nous permet d'écrire à l'intérieur toutes les urls qui commenceront par /users/. Voici les éléments à retenir :
+
+- **prefix** : indique le préfixe de l'url, ainsi toutes les routes du groupe commenceront par users/
+- **name** : préfixe du nom des routes, ainsi toutes les routes du groupe auront pour nom "users.[NOM_DE_MA_ROUTE]"
+- **group** : le callback permettant de renseigner toutes les routes présentes dans le groupe
+
+Vous remarquerez que toutes les routes ont ainsi été nommées avec comme prefix "users.". Nous pourrons donc par la suite appeler nos routes grâce à la fonction "route" :
+
+```injectablephp
+route('users.index'); // https://monsite.fr/users
+route('users.show', ['name' => 'jean-michel-doe']); // https://monsite.fr/users/jean-michel-doe
+```
+
+Si jamais votre route doit contenir un paramètre, vous devez le renseigner dans la fonction Router avec le nom du paramètre que vous avez indiqué.

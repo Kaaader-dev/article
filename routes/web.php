@@ -54,3 +54,24 @@ Route::get('number/{n}', function($n) {
 Route::get('string/{string}', function($string) {
     return $string;
 })->where('string', '[a-z]+');
+
+/**
+ * Exemple d'une route nommée, quon pourra appeler grâce à la fonction
+ * route('home')
+ */
+Route::get('home', function() {
+    return 'Je suis la page d\'accueil';
+})->name('home');
+
+/**
+ * Exemple de routes groupées
+ */
+Route::prefix('users')->name('users.')->group(function() {
+   Route::get('/', function() {
+       return 'Accueil espace membre';
+   })->name('index');
+
+   Route::get('/{name}', function($name) {
+       return 'Bonjour je suis ' . ucwords(str_replace('-', ' ', $name));
+   })->name('show')->where('name', '[a-z]+');
+});
