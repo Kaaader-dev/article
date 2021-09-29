@@ -75,3 +75,31 @@ Route::prefix('users')->name('users.')->group(function() {
        return 'Bonjour je suis ' . ucwords(str_replace('-', ' ', $name));
    })->name('show')->where('name', '[a-z]+');
 });
+
+/**
+ * Réponse automatiquement formatée en JSON
+ */
+Route::get('json', function() {
+    return ['un', 'deux', 'trois', 'quatre'];
+});
+
+/**
+ * Réponse imposée
+ */
+Route::get('reponse-de-test', function () {
+    return response('une réponse', 503)->header('Content-Type', 'text/plain');
+});
+
+/**
+ * Première vue affichée depuis une route
+ */
+Route::get('ma-premiere-vue', function() {
+    return view('first_view');
+});
+
+/**
+ * Première vue avec des paramètres
+ */
+Route::get('article/{n}', function($n) {
+    return view('article')->with('numero', $n);
+})->whereNumber('n');
