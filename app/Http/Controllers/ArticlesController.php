@@ -304,6 +304,20 @@ F… [+1977 chars]',
 
     public function show($id)
     {
+        $article = $this->articles[$id - 1];
+        return view('articles.show', compact('article', 'id'));
+    }
 
+    public function navigate($id, $direction = 'right')
+    {
+        if( $id > 1 && $id < count($this->articles) ) {
+            if( $direction === 'right' ) {
+                return redirect()->route('articles.show', $id + 1);
+            }
+
+            return redirect()->route('articles.show', $id - 1);
+        }
+
+        return redirect()->route('articles.index');
     }
 }

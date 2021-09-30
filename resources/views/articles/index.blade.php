@@ -8,7 +8,7 @@
 <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
     @foreach( $articles as $article )
         <div class="col">
-            <a href="{{ route('articles.show', $loop->index) }}" style="text-decoration: none;">
+            <a href="{{ route('articles.show', $loop->iteration) }}" style="text-decoration: none;">
             <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('{{ $article['urlToImage'] }}'); background-size: cover">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
 

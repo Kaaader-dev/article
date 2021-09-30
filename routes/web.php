@@ -118,6 +118,12 @@ Route::get('article/{n}', function($n) {
 Route::get('lessons', [LessonsController::class, 'index'])->name('lessons');
 
 Route::prefix('articles')->name('articles.')->group(function() {
-    Route::get('/', [ArticlesController::class, 'index'])->name('index');
-    Route::get('{id}', [ArticlesController::class, 'show'])->name('show');
+    Route::get('/', [ArticlesController::class, 'index'])
+        ->name('index');
+    Route::get('{id}', [ArticlesController::class, 'show'])
+        ->name('show');
+    Route::get('navigate/{id}/{direction}', [ArticlesController::class, 'navigate'])
+        ->whereNumber('id')
+        ->whereAlpha('direction')
+        ->name('navigate');
 });
