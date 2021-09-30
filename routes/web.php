@@ -126,4 +126,7 @@ Route::prefix('articles')->name('articles.')->group(function() {
         ->whereNumber('id')
         ->whereAlpha('direction')
         ->name('navigate');
+
+    Route::post('search', [ArticlesController::class, 'search'])
+        ->name('search');
 });

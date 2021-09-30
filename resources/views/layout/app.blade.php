@@ -24,13 +24,20 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('articles.index') }}">Articles</a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Votre recherche" aria-label="Search">
+            <form class="d-flex" method="POST" action="{{ route('articles.search') }}">
+                @csrf
+                <input class="form-control me-2" type="search" name="search" id="search" placeholder="Votre recherche" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Chercher</button>
             </form>
         </div>
     </div>
 </nav>
+
+@error('search')
+<div class="container">
+    <div class="alert alert-danger">{{ $message }}</div>
+</div>
+@enderror
 
 <div class="container">
 @yield('content')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ArticlesController extends Controller
 {
@@ -41,5 +42,19 @@ class ArticlesController extends Controller
         }
 
         return redirect()->route('articles.index');
+    }
+
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'search'    =>  ['required']
+        ]);
+
+        $articles = collect($this->articles);
+        $results = $articles->filter(function($article) use($request) {
+            return preg_match('/' . strtolower($request->input('search')) . '/', strtolower($article['title']));
+        });
+
+        return view('articles.index')->with('articles', $results->all());
     }
 }
