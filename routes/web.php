@@ -1,6 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+//  Controllers
+use \App\Http\Controllers\LessonsController;
+use \App\Http\Controllers\ArticlesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -103,3 +107,17 @@ Route::get('ma-premiere-vue', function() {
 Route::get('article/{n}', function($n) {
     return view('article')->with('numero', $n);
 })->whereNumber('n');
+
+/**
+ * Première vue avec des paramètres
+ */
+Route::get('article/{n}', function($n) {
+    return view('article')->with('numero', $n);
+})->whereNumber('n');
+
+Route::get('lessons', [LessonsController::class, 'index'])->name('lessons');
+
+Route::prefix('articles')->name('articles.')->group(function() {
+    Route::get('/', [ArticlesController::class, 'index'])->name('index');
+    Route::get('{id}', [ArticlesController::class, 'show'])->name('show');
+});

@@ -110,8 +110,94 @@ ou encore :
 
 ```injectablephp
 Route::get('article/{n}', function($n) {
+    $numero = $n;
     return view('article', concat('n'));
 })->whereNumber('n');
 ```
 
 Il ne nous reste plus qu'à créer notre vue **article.php** dans notre dossier **resources/views**
+
+### Organiser ses vues
+
+Laravel possède un moteur de template élégant nommé Blade qui nous permet de faire pas mal de choses. La première est de nous simplifier la syntaxe. Par exemple au lieu de la ligne suivante que nous avons prévue dans la vue précédente :
+
+```injectablephp
+<p>C'est l'article n° <?php echo $numero ?></p>
+```
+
+On peut utiliser cette syntaxe avec Blade :
+
+```injectablephp
+<p>C'est l'article n° {{ $numero }}</p>
+
+```
+
+Tout ce qui se trouve entre les doubles accolades est interprété comme du code PHP. Mais pour que ça fonctionne il faut indiquer à Laravel qu’on veut utiliser Blade pour cette vue. Ça se fait simplement en modifiant le nom du fichier :
+
+Il suffit d’ajouter « blade » avant l’extension « php ». Vous pouvez tester l’exemple précédent avec ces modifications et vous verrez que tout fonctionne parfaitement avec une syntaxe épurée.
+
+Il y a aussi la version avec la syntaxe {!! … !!}. La différence entre les deux versions est que le texte entre les doubles accolades est échappé ou purifié (on utilise en interne htmlspecialchars pour éviter les attaques XSS). Donc soyez prudent si vous utilisez la syntaxe {!! … !!} !
+
+### Utiliser un template
+
+Une fonction fondamentale de Blade est de permettre de faire du templating, c’est à dire de factoriser du code de présentation. Commençons par créer un layout global, qui servira de base pour toutes nos vues (resources/views/layout/app.blade.php) :
+
+```html
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+@yield('content')
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+Pour essayer d'avoir un minimum de visuel, j'ai directement importé le framework CSS Bootstrap pour styliser un peu notre projet de cours.
+
+Intéréssons nous à ce fichier. Vous remarquer la présence d'une fonction blade : **@yield**
+Cette fonction vous permet de définir des emplacements au sein même de votre layout, et ainsi d'intervenir à des endroits précis de votre layout.
+
+Reprenons donc le template article.blade.php pour le transformer comme ceci :
+
+```injectablephp
+@extends('layout.app')
+
+@section('title', 'Article n°' . $numero)
+
+@section('content')
+    <p>C'est l'article n°{{ $numero }}</p>
+@endsection
+```
+
+Tout d'abord, il nous faut importer notre layout principal, cela signifie que notre fichier article.blade est étendu par notre layout, d'où la fonction @extends de Blade qui vient récupérer notre layout pour englober notre vue.
+
+Nous devons ensuite remplir les différents emplacements, ou sections, que nous avons défini dans notre layout. A savoir les sections title et content.
+
+## Les redirections
+
+Dans certains cas vous aurez besoin de rediriger vers une autre url. Pour celà Laravel vous fournit plusieurs outil :
+
+```injectablephp
+//  Vous voupez directement rediriger vers https://monsite.fr/ma-page-de-redirection
+return redirect('/ma-page-de-redirection');
+
+//  Vous pouvez également rediriger vers une route
+return redirect()->route('home');
+
+//  Vous pouvez passer des paramètres dans votre redirection
+return redirect()->route('home', ['foo' => 'bar']);
+
+//  Vous pouvez rediriger vers la page précédente
+return back();
+
+//  Vous pouvez également passer des status de réponse à vos redirection, par défaut le statut est 200.
+return redirect(route('home'), 301);
+```
