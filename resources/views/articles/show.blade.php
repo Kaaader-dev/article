@@ -14,11 +14,14 @@
 
     {{ $article['content'] }}
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="{{ route('articles.navigate', ['id' => $id, 'left']) }}">Précédent</a></li>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="{{ route('articles.navigate', ['id' => $id, 'left']) }}">Précédent</a></li>
 
-            <li class="page-item"><a class="page-link" href="{{ route('articles.navigate', ['id' => $id, 'right']) }}">Suivant</a></li>
-        </ul>
-    </nav>
+                <li class="page-item"><a class="page-link" href="{{ route('articles.navigate', ['id' => $id, 'right']) }}">Suivant</a></li>
+            </ul>
+        </nav>
+    </div>
+
 @endsection

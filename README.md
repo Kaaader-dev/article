@@ -80,4 +80,6 @@ L’injection de dépendance est destinée à éviter de rendre les classes dép
 - I [L'environnement](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/01-Environnement.md)
 - II [L'installation](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/02-Installation.md)
 - III [Le routage](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/03-Routage.md)
+- IV [Les réponses](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/04-Reponses.md)
+  - V [Les Contrôleurs](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/05-Controlleurs.md)
 
