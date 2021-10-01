@@ -83,3 +83,72 @@ L’injection de dépendance est destinée à éviter de rendre les classes dép
 - IV [Les réponses](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/04-Reponses.md)
   - V [Les Contrôleurs](https://github.com/La-boite-a-code/LIDEM-Laravel/blob/master/lessons/05-Controlleurs.md)
 
+Programme de cours :
+
+Les bases :
+
+- Environnement et installation de Laravel
+- Le routage :
+  - Méthodes
+  - Groupages
+- Les réponses :
+  - Automatiques
+  - Construction d'une réponse
+  - Les vues
+  - Les redirections
+- Les contrôleurs :
+  - Artisan
+  - Utilisation des Contrôleurs
+  - Cas pratique + Correction
+- Les formulaires
+  - La validation des formulaires :
+    - Dans le contrôlleur
+    - Dans un fichier Request
+- Les middlewares
+- L'envoi d'emails :
+  - MailTrap
+  - Envoi d'emails
+  
+Les données :
+- Les migrations et les modèles
+- Utiliser les modèles
+- Les relations :
+  - 1:n
+  - n:n
+  - polymorphiques
+- Les resources
+
+La sécurité :
+- Authentification
+  - Fortify
+  - Laravel Passport 
+- La sécurité :
+  - Rate Limiter
+  - Injections SQL
+  - CSRF
+  - Formulaires (authorize)
+  - Autorisations des utilisateurs (Policies)
+- Aller plus loin :
+  - Tests unitaires
+  - Laravel Mix
+  - Evènements
+  
+Projet Final : Réaliser un dashboard de maintenance et de prêts d'ordinateurs. Voici le cahier des charges :
+
+- L'utilisateur peut se connecter accéder aux tableaux suivants :
+- Ordinateurs disponibles : Modèle, Référence, Date d'entrée, Nombre d'interventions
+- Ordinateurs en maintenance : Modèle, Référence, Date d'entrée en maintenance, Panne constatée
+- Ordinateurs en prêts : Modèle, Référence, Date de prêt, Date de retour, Client
+
+Il faut donc un outil pour gérer le parc informatique avec la liste des ordinateurs disponibles, un outil pour gérer les clients bénéficiants de prêts et un outil pour gérer les différents prêts.
+
+Chaque ordinateur aura un historique des prêts et des opérations de maintenance qu'il aura subi. 
+
+Chaque client aura un historique des ordinateurs qu'il se sera vu prêté 
+
+Il sera possible de gérer les types d'interventions disponibles pour la maintenance.
+
+Il faudra prévoir une API pour la connexion des utilisateurs (Token) et la consultation des ordinateurs :
+- en maintenance
+- prêtés
+- disponibles

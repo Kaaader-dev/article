@@ -35,10 +35,10 @@ class ArticlesController extends Controller
     /**
      * Vue d'un article
      *
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show(int $id)
     {
         //  On récupère notre article, avec la bonne clé de tableau
         $article = $this->articles[$id - 1];
@@ -48,11 +48,11 @@ class ArticlesController extends Controller
     /**
      * Fonction permettant de naviguer d'article en article
      *
-     * @param $id
+     * @param int $id
      * @param string $direction
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function navigate($id, $direction = 'right')
+    public function navigate(int $id, string $direction = 'right')
     {
         //  On vérifie que l'identifiant renseigné est supérieur à 1 et inférieur au total du nombre d'article
         if( $id > 1 && $id < count($this->articles) ) {
@@ -83,7 +83,7 @@ class ArticlesController extends Controller
             'search'    =>  ['required'] // On vérifie que le champ "search" est bien rempli
         ]);
 
-        //  On utilise l'outil de tableau de laravel pour pouvoir trier nos articles
+        //  On utilise l'outil de collection de laravel pour pouvoir trier nos articles
         $articles = collect($this->articles);
 
         //  On applique un filtre pour trouver les articles dont le titre contient le mot clé recherché

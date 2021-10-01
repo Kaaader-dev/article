@@ -121,15 +121,14 @@ Il ne nous reste plus qu'à créer notre vue **article.php** dans notre dossier 
 
 Laravel possède un moteur de template élégant nommé Blade qui nous permet de faire pas mal de choses. La première est de nous simplifier la syntaxe. Par exemple au lieu de la ligne suivante que nous avons prévue dans la vue précédente :
 
-```injectablephp
+```html
 <p>C'est l'article n° <?php echo $numero ?></p>
 ```
 
 On peut utiliser cette syntaxe avec Blade :
 
-```injectablephp
+```html
 <p>C'est l'article n° {{ $numero }}</p>
-
 ```
 
 Tout ce qui se trouve entre les doubles accolades est interprété comme du code PHP. Mais pour que ça fonctionne il faut indiquer à Laravel qu’on veut utiliser Blade pour cette vue. Ça se fait simplement en modifiant le nom du fichier :
