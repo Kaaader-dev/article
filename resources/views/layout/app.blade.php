@@ -10,6 +10,8 @@
             padding-top: 4.5rem;
         }
     </style>
+
+    <meta name="_token" content="{{ csrf_token() }}">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -40,6 +41,8 @@ class ArticlesController extends Controller
      */
     public function show(int $id)
     {
+        abort_if($id < 1 || $id > count($this->articles), 404);
+
         //  On récupère notre article, avec la bonne clé de tableau
         $article = $this->articles[$id - 1];
         return view('articles.show', compact('article', 'id'));
@@ -76,12 +79,14 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function search(Request $request)
+    public function search(SearchForm $request)
     {
         //  Validation du formulaire de recherche
+        /*
         $this->validate($request, [
-            'search'    =>  ['required'] // On vérifie que le champ "search" est bien rempli
+            'search'    =>  ['required', 'min:4', 'max:10'] // On vérifie que le champ "search" est bien rempli
         ]);
+        */
 
         //  On utilise l'outil de collection de laravel pour pouvoir trier nos articles
         $articles = collect($this->articles);
