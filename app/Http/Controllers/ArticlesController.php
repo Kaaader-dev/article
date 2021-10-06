@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SearchForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Article;
+use App\Models\User;
+use App\Models\Category;
 
 /**
  * Class ArticlesController
@@ -19,8 +22,10 @@ class ArticlesController extends Controller
     public function __construct()
     {
         //  On récupère nos articles dans le fichier JSON fourni
-        $articles = json_decode(file_get_contents(resource_path('data/articles.json')), true);
-        $this->articles = $articles['articles'];
+        // $articles = json_decode(file_get_contents(resource_path('data/articles.json')), true);
+        //on récupère les données de la BDD
+        $articles = Article::all();
+        $this->articles = $articles;
     }
 
     /**
@@ -30,6 +35,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
+        // dd($this->articles);
         return view('articles.index')->with('articles', $this->articles);
     }
 
@@ -98,5 +104,42 @@ class ArticlesController extends Controller
 
         //  On retourne une vue avec nos résultats
         return view('articles.index')->with('articles', $results->all());
+    }
+    public function create()
+    {
+        $users = User::all();
+        $category = Category::all();
+        return view('articles.article-form', [
+            'users' => $users,
+            'categories' => $category
+        ]);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        // dd($request->category_id);
+        $request->validate([
+            'titre' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'contenue' => 'required|string|max:255',
+            'UrlImage' => 'required|string|max:255',
+        ]);
+
+        $article = Article::create([
+            'title' => $request->titre,
+            'description' => $request->description,
+            'content' => $request->contenue,
+            'user_id' => $request->user_id,
+            'urlToImage' => $request->UrlImage,
+            'slug' => 'default',
+        ]);
+        $article->categories()->attach($request->category_id);
+
+        return redirect('/articles');
     }
 }

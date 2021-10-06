@@ -120,12 +120,16 @@ Route::get('lessons', [LessonsController::class, 'index'])->name('lessons');
 Route::prefix('articles')->name('articles.')->group(function() {
     Route::get('/', [ArticlesController::class, 'index'])
         ->name('index');
-    Route::get('{id}', [ArticlesController::class, 'show'])
+    Route::get('detail/{id}', [ArticlesController::class, 'show'])
         ->name('show');
     Route::get('navigate/{id}/{direction}', [ArticlesController::class, 'navigate'])
         ->whereNumber('id')
         ->whereAlpha('direction')
         ->name('navigate');
+    Route::get('createArticle', [ArticlesController::class, 'create'])
+        ->name('create');
+    Route::post('createArticle', [ArticlesController::class, 'store'])
+        ->name('store');
 
     Route::post('search', [ArticlesController::class, 'search'])
         ->name('search');

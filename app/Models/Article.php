@@ -13,7 +13,7 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'description', 'content', 'user_id'];
+    protected $fillable = ['title', 'slug', 'description', 'content', 'user_id', 'urlToImage'];
 
     /**
      * Relation avec la table users
@@ -30,7 +30,7 @@ class Article extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'articles_categories', 'article_id', 'id');
+        return $this->belongsToMany(Category::class, 'articles_categories', 'article_id', 'category_id');
     }
 
     /**

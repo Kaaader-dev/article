@@ -4,7 +4,7 @@
 
 @section('content')
 <h2 class="pb-2 border-bottom">Nos derniers articles</h2>
-
+<a href="{{ route('articles.create') }}" class="btn btn-primary">Nouvelle Article</a>
 <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
     @foreach( $articles as $article )
         <div class="col">
@@ -16,12 +16,16 @@
                         {{ $article['title'] }}
                     </h2>
                     <ul class="d-flex list-unstyled mt-auto">
-                        <li class="me-auto">
+                        {{-- <li class="me-auto">
                             <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                        </li>
+                        </li> --}}
                         <li class="d-flex align-items-center me-3">
                             <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                            <small>{{ $article['source']['name'] }}</small>
+                            <small>
+                                @if(isset($article['source']['name']))
+                                    {{ $article['source']['name'] }}
+                                @endif
+                            </small>
                         </li>
                         <li class="d-flex align-items-center">
                             <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
